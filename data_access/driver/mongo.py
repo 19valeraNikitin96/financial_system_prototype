@@ -78,7 +78,9 @@ class MongoReplicaSetImpl(DBOperations):
         collection = db[payload.collection_name]
 
         doc = collection.find_one({'_id': ObjectId(payload.id)})
-        del doc['_id']
+        if doc is not None:
+            del doc['_id']
+
         return doc
 
 

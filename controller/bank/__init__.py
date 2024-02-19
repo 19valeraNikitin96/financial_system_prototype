@@ -88,31 +88,3 @@ async def get_department(request: Request):
     data = financial_service.read_department(_id)
 
     return data
-
-# @bank_operations.post('/departments')
-# async def create(request: Request):
-#     payload = await request.json()
-#
-#
-#     return {
-#         'id': _id
-#     }
-#
-#
-# @bank_operations.put(_path)
-# async def update(request: Request):
-#     _id = request.headers.get('Id')
-#     payload = await request.json()
-#
-#
-#     return {
-#         'id': _id
-#     }
-#
-#
-# @bank_operations.get(_path)
-# async def read(request: Request):
-#     _id = request.headers.get('Id')
-#
-#
-#     return data

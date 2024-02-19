@@ -1,6 +1,8 @@
 from typing import List
 
+from controller.account import PersonJSON, AccountJSON, CardJSON
 from controller.bank import ATMJSON, BankDepartmentJSON
+from controller.transaction import TransactionJSON
 from data_access import DBAccess
 from data_access.driver.mongo import MongoCreatePayload, MongoReplicaSetImpl, MongoReadPayload, MongoUpdatePayload
 from service import FinancialService
@@ -51,33 +53,68 @@ class FinancialServiceImpl(FinancialService):
 
         return data
 
-    # def register_bank_department(self, department: BankDepartment):
-    #     atms = department.atms
-    #
-    #     for atm in atms:
-    #         if atm.id is None:
-    #             data = atm.doc
-    #             create = MongoCreatePayload(self._db_name, 'atms', data)
-    #             _id = self._db_access.create(create)
-    #
-    #
-    # def get_bank_department(self):
-    #     pass
-    #
-    # def register_account(self):
-    #     pass
-    #
-    # def update_account(self):
-    #     pass
-    #
-    # def get_account(self):
-    #     pass
-    #
-    # def add_credit_card(self):
-    #     pass
-    #
-    # def register_atm(self, atm: ATMJSON):
-    #     pass
-    #
-    # def save_transaction(self):
-    #     pass
+    def register_person(self, person: PersonJSON) -> str:
+        payload = MongoCreatePayload(self._db_name, 'persons', to_dict_recursive(person.__dict__))
+        _id = self._db.create(payload)
+
+        return _id
+
+    def update_person(self, _id: str, person: PersonJSON):
+        payload = MongoUpdatePayload(self._db_name, 'persons', to_dict_recursive(person.__dict__), _id)
+        _id = self._db.update(payload)
+
+        return _id
+
+    def read_person(self, _id: str):
+        payload = MongoReadPayload(self._db_name, 'persons', _id)
+        data = self._db.read(payload)
+
+        return data
+
+    def register_card(self, card: CardJSON) -> str:
+        payload = MongoCreatePayload(self._db_name, 'cards', to_dict_recursive(card.__dict__))
+        _id = self._db.create(payload)
+
+        return _id
+
+    def update_card(self, _id: str, card: CardJSON) -> str:
+        payload = MongoUpdatePayload(self._db_name, 'cards', to_dict_recursive(card.__dict__), _id)
+        _id = self._db.update(payload)
+
+        return _id
+
+    def read_card(self, _id: str) -> dict:
+        payload = MongoReadPayload(self._db_name, 'cards', _id)
+        data = self._db.read(payload)
+
+        return data
+
+    def register_account(self, account: AccountJSON) -> str:
+        payload = MongoCreatePayload(self._db_name, 'accounts', to_dict_recursive(account.__dict__))
+        _id = self._db.create(payload)
+
+        return _id
+
+    def update_account(self, _id: str, account: AccountJSON) -> str:
+        payload = MongoUpdatePayload(self._db_name, 'accounts', to_dict_recursive(account.__dict__), _id)
+        _id = self._db.update(payload)
+
+        return _id
+
+    def read_account(self, _id: str) -> dict:
+        payload = MongoReadPayload(self._db_name, 'accounts', _id)
+        data = self._db.read(payload)
+
+        return data
+
+    def register_transaction(self, transaction: TransactionJSON) -> str:
+        payload = MongoCreatePayload(self._db_name, 'transactions', to_dict_recursive(transaction.__dict__))
+        _id = self._db.create(payload)
+
+        return _id
+
+    def read_transaction(self, _id: str) -> dict:
+        payload = MongoReadPayload(self._db_name, 'transactions', _id)
+        data = self._db.read(payload)
+
+        return data
