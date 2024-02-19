@@ -56,6 +56,8 @@ class MongoReplicaSetImpl(DBOperations):
         _id = ObjectId()
         data['_id'] = _id
         collection.insert_one(data)
+        res = collection.find({})
+        print(res)
 
         return str(_id)
 
@@ -76,6 +78,7 @@ class MongoReplicaSetImpl(DBOperations):
         collection = db[payload.collection_name]
 
         doc = collection.find_one({'_id': ObjectId(payload.id)})
+        del doc['_id']
         return doc
 
 

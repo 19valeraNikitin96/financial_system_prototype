@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from data_access.model.account import Person, Account
-
 
 @dataclass
 class DBAccess:

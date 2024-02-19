@@ -2,9 +2,11 @@ from dataclasses import dataclass
 
 from typing import List
 
+from service.model import DocumentBase
+
 
 @dataclass
-class Person:
+class Person(DocumentBase):
     _id: str
     firstname: str
     lastname: str
@@ -13,7 +15,7 @@ class Person:
 
 
 @dataclass
-class Card:
+class Card(DocumentBase):
     _id: str
     number: str
     cvv2: int
@@ -21,7 +23,7 @@ class Card:
 
 
 @dataclass
-class Account:
+class Account(DocumentBase):
     _id: str
     person_id: str
     cards_ids: List[str]

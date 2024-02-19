@@ -2,7 +2,7 @@ import json
 import logging
 
 from data_access import DBOperations, DBCreatePayload, DBAccess, DBUpdatePayload, DBReadPayload
-from data_access.autumn_db.db_driver import DBDriver, CollectionName, Document, DocumentId
+from data_access.driver.autumn_db.db_driver import DBDriver, CollectionName, Document, DocumentId
 
 
 class AutumnDBImpl(DBOperations):

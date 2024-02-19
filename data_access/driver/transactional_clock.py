@@ -7,7 +7,7 @@ import requests
 from bson import ObjectId
 
 from data_access import DBAccess, DBOperations, DBCreatePayload, DBUpdatePayload, DBReadPayload
-from data_access.mongo import MongoSpecific
+from data_access.driver.mongo import MongoSpecific
 
 
 class TCSpecific(MongoSpecific):
