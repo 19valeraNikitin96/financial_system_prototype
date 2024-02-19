@@ -1,7 +1,6 @@
 import datetime
 import json
 import logging
-from typing import List
 
 import pymongo
 import requests
