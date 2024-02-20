@@ -45,7 +45,7 @@ class MongoReplicaSetImpl(DBOperations):
     def __init__(self, accesses: List[DBAccess]):
         self._accesses = accesses
         conn_str = ','.join([f"{access.addr}:{access.port}" for access in accesses])
-        self._replica_set = pymongo.MongoClient(f"mongodb://{conn_str}/?replicaSet=my-mongo-set", w=3, read_preference=ReadPreference.SECONDARY_PREFERRED)
+        self._replica_set = pymongo.MongoClient(f"mongodb://{conn_str}/?replicaSet=my-mongo-set", w=8, read_preference=ReadPreference.SECONDARY_PREFERRED)
 
     def create(self, payload: MongoCreatePayload):
         logging.debug(f'Creating [{payload.db_name}][{payload.collection_name}][{payload.data}]')

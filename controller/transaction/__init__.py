@@ -28,3 +28,14 @@ async def get_transaction(request: Request):
     data = financial_service.read_transaction(_id)
 
     return data
+
+
+# @transaction_operations.get('/transactions')
+# async def get_transaction(request: Request):
+#     from controller import financial_service
+#
+#     _id = request.headers.get('Id')
+#
+#     data = financial_service.read_transaction(_id)
+#
+#     return data

@@ -1,17 +1,28 @@
 import os
 
-from data_access import DBAccess
 from service import FinancialService
-from service.mongo_replicaset_flavor import FinancialServiceImpl
+from service.autumndb_flavor import FinancialServiceImpl as AutumnDBFinancialServiceImpl
+from service.mongo_replicaset_flavor import FinancialServiceImpl as ReplicasetFinancialServiceImpl
+from service.tc_flavor import FinancialServiceImpl as TCFinancialServiceImpl
 
 
 def init_service() -> FinancialService:
-    flavor = os.environ['DATA_ACCESS_FLAVOR']
+    flavor = os.environ.get('DATA_ACCESS_FLAVOR', None)
+    if flavor is None:
+        return None
+
     flavor = flavor.upper()
 
     if flavor == 'MONGODB_REPLICASET':
-        accesses = [DBAccess(f"172.20.0.1{i}", 27017) for i in range(1, 9)]
-        service = FinancialServiceImpl(accesses)
+        service = ReplicasetFinancialServiceImpl()
+        return service
+
+    if flavor == 'TC':
+        service = TCFinancialServiceImpl()
+        return service
+
+    if flavor == 'AUTUMN':
+        service = AutumnDBFinancialServiceImpl()
         return service
 
 
